@@ -1,4 +1,5 @@
 package org.hsn.oauth2oauthorizationserver.configuration;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
@@ -14,12 +15,11 @@ public class SecurityConfig {
     @Bean
     @Order(Ordered.HIGHEST_PRECEDENCE)
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-
-        OAuth2AuthorizationServerConfigurer   auth2AuthorizationServerConfigurer=
+        OAuth2AuthorizationServerConfigurer auth2AuthorizationServerConfigurer =
                 OAuth2AuthorizationServerConfigurer.authorizationServer().oidc(Customizer.withDefaults());
 
         httpSecurity.
-                with(auth2AuthorizationServerConfigurer,Customizer.withDefaults());
+                with(auth2AuthorizationServerConfigurer, Customizer.withDefaults());
         return httpSecurity.build();
     }
 
@@ -30,8 +30,6 @@ public class SecurityConfig {
                         .authorizeHttpRequests(request -> request.anyRequest().authenticated())
                         .build();
     }
-
-
 
 
 }

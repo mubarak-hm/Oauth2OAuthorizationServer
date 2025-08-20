@@ -1,4 +1,5 @@
 package org.hsn.oauth2oauthorizationserver.configuration;
+
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -8,62 +9,44 @@ import org.hsn.oauth2oauthorizationserver.utils.RSAUtil;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+
 import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 @Configuration
 public class AppConfig {
-  private  final RSAUtil rsaUtil;
+    private final RSAUtil rsaUtil;
 
     public AppConfig(RSAUtil rsaUtil) {
         this.rsaUtil = rsaUtil;
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-
-        UserDetails user = User.withUsername("TestUser")
-                .password("SeuredPassword122!")
-                .roles("USER", "ADMIN")
-                .build();
-        return new InMemoryUserDetailsManager(user);
-
-    }
-
-
-
-    @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
     public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
         return new JdbcRegisteredClientRepository(jdbcTemplate);
     }
 
-
     @Bean
-    public AuthorizationServerSettings  authorizationServerSettings () {
-        return  AuthorizationServerSettings.builder().build();
+    public AuthorizationServerSettings authorizationServerSettings() {
+        return AuthorizationServerSettings.builder().build();
     }
 
     @Bean
-    public JWKSource<SecurityContext>  jwkSource () throws NoSuchAlgorithmException {
-        RSAKey rsaKey= new  RSAKey.Builder(rsaUtil.getPublicKey())
+    public JWKSource<SecurityContext> jwkSource() throws NoSuchAlgorithmException {
+        RSAKey rsaKey = new RSAKey.Builder(rsaUtil.getPublicKey())
                 .privateKey(rsaUtil.getPrivateKey())
                 .keyID(String.valueOf(UUID.randomUUID()))
                 .build();
-                return new ImmutableJWKSet<>( new JWKSet(  rsaKey));
+        return new ImmutableJWKSet<>(new JWKSet(rsaKey));
 
     }
 
