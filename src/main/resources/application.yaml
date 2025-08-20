@@ -1,1 +1,10 @@
-spring.application.name=Oauth2OAuthorizationServer
+
+spring:
+  application:
+    name: Oauth2OAuthorizationServer
+
+
+
+    rsa:
+      public-key: ${RSA_PUBLIC_KEY}
+      private-key: ${RSA_PRIVATE_KEY}

@@ -10,4 +10,5 @@ public class Oauth2OAuthorizationServerApplication {
         SpringApplication.run(Oauth2OAuthorizationServerApplication.class, args);
     }
 
+
 }
