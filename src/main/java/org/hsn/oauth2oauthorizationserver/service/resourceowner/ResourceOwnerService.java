@@ -5,8 +5,11 @@ import org.hsn.oauth2oauthorizationserver.entity.ResourceOwner;
 import org.hsn.oauth2oauthorizationserver.repository.ResourceOwnerRepository;
 import org.hsn.oauth2oauthorizationserver.requests.ResourceOwnerRegistrationRequest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 
 @RequiredArgsConstructor
+@Service
 public class ResourceOwnerService {
     private final ResourceOwnerRepository resourceOwnerRepository;
     private final PasswordEncoder passwordEncoder;

@@ -1,5 +1,4 @@
 package org.hsn.oauth2oauthorizationserver.configuration;
-
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
@@ -14,8 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.authorization.client.JdbcRegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.client.RegisteredClientRepository;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
-
-import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
 
 @Configuration
@@ -31,6 +28,8 @@ public class AppConfig {
         return new BCryptPasswordEncoder();
     }
 
+
+    @Bean
     public RegisteredClientRepository registeredClientRepository(JdbcTemplate jdbcTemplate) {
         return new JdbcRegisteredClientRepository(jdbcTemplate);
     }
@@ -40,8 +39,9 @@ public class AppConfig {
         return AuthorizationServerSettings.builder().build();
     }
 
+
     @Bean
-    public JWKSource<SecurityContext> jwkSource() throws NoSuchAlgorithmException {
+    public JWKSource<SecurityContext> jwkSource() {
         RSAKey rsaKey = new RSAKey.Builder(rsaUtil.getPublicKey())
                 .privateKey(rsaUtil.getPrivateKey())
                 .keyID(String.valueOf(UUID.randomUUID()))

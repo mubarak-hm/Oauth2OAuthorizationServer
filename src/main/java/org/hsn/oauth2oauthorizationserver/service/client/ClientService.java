@@ -28,7 +28,7 @@ public class ClientService {
         request.scopes().forEach(clientBuilder::scope);
         request.grantTypes().forEach(grant -> clientBuilder
                 .authorizationGrantType(new AuthorizationGrantType(grant)));
-        clientBuilder.clientSettings(ClientSettings.builder().requireProofKey(true).build());
+        clientBuilder.clientSettings(ClientSettings.builder().requireProofKey(false).build());
         registeredClientRepository.save(clientBuilder.build());
 
     }

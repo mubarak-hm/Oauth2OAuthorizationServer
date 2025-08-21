@@ -22,4 +22,8 @@ public class ResourceOwner {
     private String password;
     private  String role;
     private LocalDate birthDate;
+
 }
+
+
+

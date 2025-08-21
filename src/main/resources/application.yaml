@@ -5,6 +5,33 @@ spring:
 
 
 
-    rsa:
-      public-key: ${RSA_PUBLIC_KEY}
-      private-key: ${RSA_PRIVATE_KEY}
+
+
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/${POSTGRES_DB}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+
+
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/app-changelog.xml
+
+
+rsa:
+    public-key: ${RSA_PUBLIC_KEY}
+    private-key: ${RSA_PRIVATE_KEY}
