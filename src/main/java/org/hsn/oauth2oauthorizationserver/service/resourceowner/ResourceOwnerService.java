@@ -1,5 +1,4 @@
 package org.hsn.oauth2oauthorizationserver.service.resourceowner;
-
 import lombok.RequiredArgsConstructor;
 import org.hsn.oauth2oauthorizationserver.entity.ResourceOwner;
 import org.hsn.oauth2oauthorizationserver.repository.ResourceOwnerRepository;
@@ -20,6 +19,7 @@ public class ResourceOwnerService {
                 .lastName(request.lastName())
                 .password(passwordEncoder.encode(request.password()))
                 .username(request.userName())
+                .role("USER")
                 .birthDate(request.birthDate())
                 .build();
         resourceOwnerRepository.save(resourceOwner);
