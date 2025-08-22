@@ -40,8 +40,6 @@ public class AppConfig {
     }
 
 
-
-
     @Bean
     public JWKSource<SecurityContext> jwkSource() {
         RSAKey rsaKey = new RSAKey.Builder(rsaUtil.getPublicKey())

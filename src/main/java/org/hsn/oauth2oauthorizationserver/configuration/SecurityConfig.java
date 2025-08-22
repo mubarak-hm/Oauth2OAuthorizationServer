@@ -15,7 +15,7 @@ import org.springframework.security.web.util.matcher.MediaTypeRequestMatcher;
 @Configuration
 public class SecurityConfig {
     @Bean
-    @Order(1)
+    @Order()
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         OAuth2AuthorizationServerConfigurer auth2AuthorizationServerConfigurer =
                 OAuth2AuthorizationServerConfigurer.authorizationServer();
@@ -24,6 +24,8 @@ public class SecurityConfig {
                 .with(auth2AuthorizationServerConfigurer, authorizationServer->
                         authorizationServer.oidc(Customizer.withDefaults())
                         )
+                .authorizeHttpRequests(authorize->
+                        authorize.anyRequest().authenticated())
                 .exceptionHandling(e->
                         e.defaultAuthenticationEntryPointFor(
                                 new LoginUrlAuthenticationEntryPoint("/login"),
